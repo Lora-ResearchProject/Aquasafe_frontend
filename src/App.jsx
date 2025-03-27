@@ -28,7 +28,6 @@ function App() {
   if (error) return <div className="text-red-500">Error: {error.message}</div>;
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Test page</h1>
       <h1 className="text-3xl font-bold mb-4">Todo List</h1>
       <ul className="list-disc pl-5">
         {todos.map((todo) => (
