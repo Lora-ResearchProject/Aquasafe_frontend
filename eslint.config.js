@@ -9,7 +9,6 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default [
   { ignores: ['dist'] },
-  // General config for all .js/.jsx files (browser environment)
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -48,16 +47,6 @@ export default [
         { groups: ['builtin', 'external', 'internal'] },
       ],
       'prettier/prettier': 'error',
-    },
-  },
-  // Test-specific config for Vitest (Node.js + Vitest environment)
-  {
-    files: ['**/*.test.{js,jsx}'],
-    languageOptions: {
-      globals: {
-        ...globals.node, // Adds Node.js globals like 'global'
-        ...globals.vitest, // Adds Vitest globals like 'describe', 'it', 'expect'
-      },
     },
   },
   prettierConfig, // Disables ESLint rules that conflict with Prettier
