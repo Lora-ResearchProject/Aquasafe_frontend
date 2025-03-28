@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { baseURL } from '../config/config';
+import config from '../config/config';
 import { fetchVessels } from './locationService';
 
-const API_URL = baseURL + '/api/zones';
+const API_URL = config.baseUrl + '/api/zones';
 
 // Fetch all zones
 export const fetchZones = async () => {

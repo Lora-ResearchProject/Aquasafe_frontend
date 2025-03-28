@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { baseURL } from '../config/config';
+import config from '../config/config';
 
-const API_BASE_URL = baseURL + '/api/notification';
+const API_BASE_URL = config.baseUrl + '/api/notification';
 
 // Fetch all notifications
 export const getNotifications = async () => {

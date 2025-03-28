@@ -1,9 +1,9 @@
 // src/services/authService.js
 import axios from 'axios';
-import { baseURL } from '../config/config';
+import config from '../config/config';
 import { getToken, saveToken } from '../utils/auth';
 
-const API_BASE_URL = baseURL + '/api/users';
+const API_BASE_URL = config.baseUrl + '/api/users';
 
 // Login user
 export const login = async (email, password) => {

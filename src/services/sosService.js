@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { baseURL } from '../config/config';
+import config from '../config/config';
 import { fetchVessels } from './locationService';
 
-const API_URL = baseURL + '/api/sos';
+const API_URL = config.baseUrl + '/api/sos';
 
 // Fetch all SOS data from the backend
 export const fetchSOSData = async () => {

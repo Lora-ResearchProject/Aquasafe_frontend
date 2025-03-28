@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { baseURL } from '../config/config';
+import config from '../config/config';
 import { fetchVessels } from './locationService';
 import { getVesselsByZone } from './zoneService';
 
-const API_BASE_URL = baseURL + '/api/chat';
+const API_BASE_URL = config.baseUrl + '/api/chat';
 
 export const fetchLatestChats = async () => {
   try {
@@ -81,7 +81,7 @@ export const sendMessageToZone = async (zoneId, messageNumber, message) => {
 
 export const fetchMessageOptions = async () => {
   try {
-    const response = await axios.get(`${baseURL}/api/messageData/`);
+    const response = await axios.get(`${config.baseUrl}/api/messageData/`);
     return response.data.data; // Returning only the data array
   } catch (error) {
     console.error('Failed to fetch messages:', error);

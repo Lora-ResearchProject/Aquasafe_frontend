@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FiCloudRain, FiX } from 'react-icons/fi';
 import PropTypes from 'prop-types';
-import { baseURL } from '../../config/config';
+import config from '../../config/config';
 
-const API_BASE_URL = baseURL + '/api/weather-check';
+const API_BASE_URL = config.baseUrl + '/api/weather-check';
 
 const WeatherFinder = ({ lat, lon }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);

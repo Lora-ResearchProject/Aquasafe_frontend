@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
-import { baseURL } from '../config/config';
+import config from '../config/config';
 
-const socket = io(baseURL, {
+const socket = io(config.baseUrl, {
   transports: ['websocket'], // Force WebSocket connection
 }); // Adjust based on your backend URL
 

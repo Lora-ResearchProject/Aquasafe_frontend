@@ -1,6 +1,6 @@
-import { baseURL } from '../config/config';
+import config from '../config/config';
 
-const API_BASE_URL = baseURL + '/api/gateway';
+const API_BASE_URL = config.baseUrl + '/api/gateway';
 
 export const fetchGateways = async () => {
   try {
