@@ -1,14 +1,22 @@
-// --- For Local use
-// const backendIP = "localhost";
-// const backendPort = 3001
-// const baseURL = `http://${backendIP}:${backendPort}`;
+const config = {
+  backendIp: import.meta.env.VITE_BACKEND_IP || 'localhost', // Fallback IP
+  backendPort: import.meta.env.VITE_BACKEND_PORT || '3001', // Fallback port
+  baseUrl:
+    import.meta.env.VITE_BASE_URL ||
+    `http://${import.meta.env.VITE_BACKEND_IP}:${import.meta.env.VITE_BACKEND_PORT}`, // Fallback URL
+  mode: import.meta.env.MODE || 'development', // Current mode
+};
 
-// --- For Production use
-// const backendIP = "159.223.194.167";
-// const backendPort = 9001;
-// const baseURL = `http://${backendIP}:${backendPort}`;
+// Validation: Ensure baseUrl is set
+if (!config.baseUrl) {
+  throw new Error(
+    'Base URL could not be determined. Please check your .env files.'
+  );
+}
 
-//--- For Production use (with domain)
-const baseURL = `https://app.aquasafe.fish/backend`;
+// Debug logging in non-production modes
+if (config.mode !== 'production') {
+  console.log('Loaded Configuration:', config);
+}
 
-export { baseURL };
+export default config;

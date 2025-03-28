@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { format } from 'date-fns';
-import { baseURL } from '../config/config';
+import config from '../config/config';
 
-const V_API_URL = baseURL + '/api/tracker';
-const GW_API_URL = baseURL + '/api/gateway';
-const VESSEL_AUTH_URL = baseURL + '/api/vessel-auth';
-const ROUTE_LOG_URL = baseURL + '/api/route-log';
-const FISHING_HOTSPOTS_URL = baseURL + '/api/hotspots';
+const V_API_URL = config.baseUrl + '/api/tracker';
+const GW_API_URL = config.baseUrl + '/api/gateway';
+const VESSEL_AUTH_URL = config.baseUrl + '/api/vessel-auth';
+const ROUTE_LOG_URL = config.baseUrl + '/api/route-log';
+const FISHING_HOTSPOTS_URL = config.baseUrl + '/api/hotspots';
 
 // Fetch latest vessel locations with vesselName included
 export const fetchLatestVesselLocations = async () => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { baseURL } from '../../config/config';
+import config from '../../config/config';
 import { sendMessageToVessel } from '../../services/chatService';
 import { listenEvent, removeListener } from '../../services/socket';
 
@@ -18,7 +18,7 @@ const ChatWindow = ({ vessel, onBack }) => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${baseURL}/api/chat/${vessel.vesselId}`
+          `${config.baseUrl}/api/chat/${vessel.vesselId}`
         );
         setMessages(response.data);
       } catch (error) {
@@ -30,7 +30,7 @@ const ChatWindow = ({ vessel, onBack }) => {
 
     const fetchDropdownOptions = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/messageData/`);
+        const response = await axios.get(`${config.baseUrl}/api/messageData/`);
         // Filter out objects where messageNumber is 0
         const filteredOptions = response.data.data.filter(
           (option) => option.messageNumber !== 0
