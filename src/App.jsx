@@ -1,42 +1,170 @@
-import React, { useState, useEffect } from 'react';
+// src/App.js
+import { Routes, Route } from 'react-router-dom';
+
+import ProtectedRoute from './Components/auth/ProtectedRoute';
+import PublicRoute from './Components/auth/PublicRoute';
+import DashboardLayout from './Components/Layout/DashboardLayout';
+
+import Login from './Pages/Login';
+import Dashboard from './Pages/Dashboard';
+import Tracker from './Pages/Tracker';
+import MessageDataPage from './Pages/MessageDataPage';
+import SOSPage from './Pages/SosPage';
+import ChatPage from './Pages/ChatPage';
+import RouteLogPage from './Pages/RouteLogPage';
+import ProfilePage from './Pages/ProfilePage';
+import FishingHotspotsPage from './Pages/FishingHotspotsPage';
+import ForgotPasswordPage from './Pages/ForgotPasswordPage';
+import ResetPasswordPage from './Pages/ResetPasswordPage';
+import AdminDashboard from './Pages/AdminDashboard';
+import GatewayPage from './Pages/GatewayPage';
+import VesselPage from './Pages/VesselPage';
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const response = await fetch(import.meta.env.VITE_API_URL);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const result = await response.json();
-        setTodos(result);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTodos();
-  }, []);
-
-  if (loading) return <div className="text-center">Loading...</div>;
-  if (error) return <div className="text-red-500">Error: {error.message}</div>;
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Todo List</h1>
-      <ul className="list-disc pl-5">
-        {todos.map((todo) => (
-          <li key={todo.id} className="mb-2">
-            {todo.title}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Routes>
+      {/* Public Routes */}
+      <Route
+        path="/"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPasswordPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/reset-password/:resetToken"
+        element={
+          <PublicRoute>
+            <ResetPasswordPage />
+          </PublicRoute>
+        }
+      />
+
+      {/* ---- Admin Routes ---- */}
+      <Route
+        path="/admin-dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <DashboardLayout>
+              <AdminDashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/messageData"
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <DashboardLayout>
+              <MessageDataPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ---- Protected Routes -----*/}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tracker"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <Tracker />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/sos"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <SOSPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <ChatPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/routelog"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <RouteLogPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/gateway-page"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <GatewayPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      {/* <Route
+        path="/hotspots"
+        element={
+          <ProtectedRoute allowedRoles={["user", "admin"]}>
+            <DashboardLayout>
+              <FishingHotspotsPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      /> */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <ProfilePage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vessels"
+        element={
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <DashboardLayout>
+              <VesselPage />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 
