@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aquasafe_frontend-deployment
+  name: aquasafe-frontend
   labels:
-    app: aquasafe_frontend
+    app: aquasafe-frontend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: aquasafe_frontend
+      app: aquasafe-frontend
   template:
     metadata:
       labels:
-        app: aquasafe_frontend
+        app: aquasafe-frontend
     spec:
       containers:
-        - name: aquasafe_frontend
+        - name: aquasafe-frontend
           image: ${{ secrets.DOCKER_USERNAME }}/aquasafe:latest
           ports:
             - containerPort: 80

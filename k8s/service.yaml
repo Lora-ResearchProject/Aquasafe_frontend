@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: aquasafe_frontend-service
+  name: aquasafe-frontend
   labels:
-    app: aquasafe_frontend
+    app: aquasafe-frontend
 spec:
   selector:
-    app: aquasafe_frontend
+    app: aquasafe-frontend
   ports:
     - port: 80
       targetPort: 80
