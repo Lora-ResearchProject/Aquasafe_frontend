@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aquasafe_frontend-deployment
+  labels:
+    app: aquasafe_frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aquasafe_frontend
+  template:
+    metadata:
+      labels:
+        app: aquasafe_frontend
+    spec:
+      containers:
+        - name: aquasafe_frontend
+          image: ${{ secrets.DOCKER_USERNAME }}/aquasafe:latest
+          ports:
+            - containerPort: 80
+          # Optionally, specify resource requests/limits:
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          # For advanced use cases, you could pass environment variables here if needed at runtime.

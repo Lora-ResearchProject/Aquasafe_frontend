@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aquasafe_frontend-service
+  labels:
+    app: aquasafe_frontend
+spec:
+  selector:
+    app: aquasafe_frontend
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  type: ClusterIP
