@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: aquasafe-frontend
-          image: ${{ secrets.DOCKER_USERNAME }}/aquasafe:latest
+          image: veynitha2002/aquasafe:latest
           ports:
             - containerPort: 80
           # Optionally, specify resource requests/limits:
