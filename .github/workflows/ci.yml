@@ -31,14 +31,21 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Run tests
+      - name: Run tests with coverage
         env:
           VITE_BASE_URL: ${{ secrets.PROD_BASE_URL }}
-        run: npm test
+        run: npm run test -- --coverage
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          VITE_BASE_URL: ${{ secrets.PROD_BASE_URL }}
 
       - name: Build project
-        env:
-          VITE_BASE_URL: ${{ secrets.PROD_BASE_URL }}
         run: npm run build
 
       - name: Check for Security Vulnerabilities
