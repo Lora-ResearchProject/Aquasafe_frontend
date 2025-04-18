@@ -32,9 +32,13 @@ jobs:
         run: npm run lint
 
       - name: Run tests
+        env:
+          VITE_BASE_URL: ${{ secrets.PROD_BASE_URL }}
         run: npm test
 
       - name: Build project
+        env:
+          VITE_BASE_URL: ${{ secrets.PROD_BASE_URL }}
         run: npm run build
 
       - name: Check for Security Vulnerabilities
