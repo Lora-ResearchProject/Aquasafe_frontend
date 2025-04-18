@@ -8,7 +8,7 @@ export default defineConfig({
     include: ['tests/**/*.test.{js,jsx,ts,tsx}'],
     coverage: {
       provider: 'v8', // Use V8 for coverage
-      reporter: ['text', 'html'], // Text in terminal, HTML in browser
+      reporter: ['text', 'html', 'lcov'], // Text in terminal, HTML in browser
     },
   },
 });
