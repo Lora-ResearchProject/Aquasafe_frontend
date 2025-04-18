@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { HiUser } from 'react-icons/hi';
 import logo from '../../assets/logos/logo.png';

@@ -1,37 +1,58 @@
-name: Deploy
+name: Deploy Vite React App
 
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
+      - name: Build Vite App
+        # Inject secret as an environment variable
         env:
           VITE_BASE_URL: ${{ secrets.PROD_BASE_URL }}
-        run: npm run build
+        run: |
+          npm ci
+          npm run build
 
-      - name: Deploy
-        run: echo "Deploy dist/ to your hosting service here"  # Replace with actual deploy command
+      - name: Log in to container registry
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        # or use GITHUB_TOKEN if using GHCR
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --build-arg VITE_BASE_URL=${{ secrets.PROD_BASE_URL }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/aquasafe:latest \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/aquasafe:latest
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "latest"
+
+      - name: Configure Kubernetes credentials
+        # If using DigitalOcean's DOKS, you can store a kubeconfig file as a secret or create it dynamically
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG_CONTENT }}" | base64 -d > ~/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/ingress.yaml
