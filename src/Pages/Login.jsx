@@ -7,7 +7,7 @@ import logo from '../assets/logos/logo.png';
 import background from '../assets/backgroundImage/loginBg.jpg';
 import { getUserRole } from '../utils/auth';
 
-const LoginPage = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -88,4 +88,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

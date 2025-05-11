@@ -15,7 +15,7 @@ if (!config.baseUrl) {
 }
 
 // Debug logging in non-production modes
-if (config.mode !== 'production') {
+if (config.mode === 'development') {
   console.log('Loaded Configuration:', config);
 }
 

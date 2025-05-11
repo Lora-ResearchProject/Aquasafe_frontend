@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-   "dev": "vite --mode development",
+    "dev": "vite --mode development",
     "build": "vite build --mode production",
     "preview": "vite preview --mode production",
     "prepare": "husky",
@@ -26,7 +26,6 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-leaflet": "^5.0.0",
-    "react-redux": "^9.2.0",
     "react-router": "^6.30.0",
     "react-router-dom": "^6.30.0",
     "redux": "^5.0.1",
